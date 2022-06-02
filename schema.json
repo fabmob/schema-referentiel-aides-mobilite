@@ -1,16 +1,14 @@
 {
    "$schema":"https://specs.frictionlessdata.io/schemas/table-schema.json",
-   "name":"objets-importants",
-   "title":"Schéma des objets importants",
-   "description":"Spécification du fichier d'échange relatif aux objets importants gérés par les collectivités.",
+   "name":"referentiel-aides-mobilite",
+   "title":"Schéma pour un référentiel des aides de mobilité",
+   "description":"Spécification du fichier d'échange relatif aux aides de mobilité pour particuliers.",
    "keywords":[
-      "objets",
-      "autre-tag"
    ],
    "countryCode":"FR",
-   "homepage":"https://github.com/mon-orga/schema-objets-importants",
-   "path":"https://github.com/mon-orga/schema-objets-importants/raw/v0.1.1/schema.json",
-   "image":"https://github.com/mon-orga/schema-objets-importants/raw/v0.1.1/irve.png",
+   "homepage":"https://github.com/fabmob/schema-referentiel-aides-mobilite",
+   "path":"https://github.com/fabmob/schema-referentiel-aides-mobilite/blob/master/schema.json",
+   "image":"https://lafabriquedesmobilites.fr/images/favicon2.png",
    "licenses":[
       {
          "title":"Etalab Licence Ouverte 2.0",
@@ -22,36 +20,26 @@
       {
          "title":"Fichier valide (CSV)",
          "name":"exemple-valide-csv",
-         "path":"https://github.com/mon-orga/schema-objets-importants/raw/v0.1.1/exemple-valide.csv"
+         "path":"https://github.com/fabmob/schema-referentiel-aides-mobilite/blob/master/exemple-valide.csv"
       }
    ],
    "sources":[
-      {
-         "title":"Arrêté du 12 janvier 2017 relatif aux objets importants",
-         "path":"https://beta.legifrance.gouv.fr/codes/id/LEGISCTA000031367685/2020-05-25"
-      }
    ],
-   "created":"2018-06-29",
-   "lastModified":"2019-05-06",
-   "version":"0.1.1",
+   "created":"2022-06-01",
+   "lastModified":"2022-06-01",
+   "version":"0.1.0",
    "contributors":[
       {
-         "title":"John Smith",
-         "email":"john.smith@etalab.gouv.fr",
-         "organisation":"Etalab",
+         "title":"Alex Bourreau",
+         "email":"alex@fabmob.io",
+         "organisation":"FabMob",
          "role":"author"
-      },
-      {
-         "title":"Jane Doe",
-         "email":"jane.doe@example.com",
-         "organisation":"Association très importante",
-         "role":"contributor"
       }
    ],
    "fields":[
       {
          "name":"id",
-         "description":"Un identifiant unique de l'objet.",
+         "description":"Un identifiant unique de l'aide.",
          "example":"42",
          "type":"integer",
          "constraints":{
@@ -60,33 +48,173 @@
          }
       },
       {
-         "name":"date_creation",
-         "description":"La date de création de l'objet, au format ISO 8601 AAAA-MM-DD.",
-         "example":"2020-02-27",
-         "type":"date",
-         "constraints":{
-            "required":true
-         }
-      },
-      {
          "name":"nom",
-         "description":"Le nom de l'objet.",
-         "example":"Brouette",
+         "description":"Nom de l'aide.",
+         "example":"Prime à l'achat pour vélo",
          "type":"string",
          "constraints":{
             "required":true
          }
       },
       {
-         "name":"classification",
-         "description":"Classification de l'objet.",
-         "example":"Classification A",
+         "name":"description",
+         "description":"Proposition de valeur de l'aide.",
+         "example":"Inciter les Franciliens à se mettre en selle par la mise en place d'une aide à l’achat pour différents types de vélos.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"territoire",
+         "description":"Nom du territoire.",
+         "example":"Île-de-France.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"territoire_insee",
+         "description":"Code Insee du territoire.",
+         "example":"11",
+         "type":"integer",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"type_financeur",
+         "description":"Type de financeur.",
+         "example":"Aide de mon territoire.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"financeur",
+         "description":"Nom du financeur.",
+         "example":"Île-de-France Mobilités.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"condition_obtention",
+         "description":"Conditions d'obtention.",
+         "example":"Pour pouvoir bénéficier de l’aide à l’achat d’un vélo, vous devez :\n- Être une personne physique\n- Être majeur (ou mineur émancipé) et habiter en Île-de-France\n- Avoir acheté un vélo neuf conforme à la réglementation en vigueur, à partir du 1er décembre 2019 pour les VAE, vélos cargos avec ou sans assistance électrique ou à partir du 1er mai 2020 pour les vélos pliants et les vélos adaptés\n- S’engager à ne pas revendre le vélo pendant une durée de 3 ans\n- Ne pas avoir déjà bénéficié de la même aide d’Île-de-France Mobilités\n- Avoir demandé les aides locales si elles existent avant de faire la demande faite à Île-de-France Mobilités\n\nLes vélos concernés par cette aide sont les :\n- Vélo classique à assistance électrique\n- Vélo cargo avec ou sans assistance électrique : biporteur, triporteur, vélo rallongé (longtail), etc.\n- Vélo pliant avec ou sans assistance électrique\n- Vélo adapté\n\nLes vélos doivent être neufs et conformes à la réglementation en vigueur.\n\nPour le remboursement, sont concernés les vélos achetés à partir du 01/12/2019 pour les vélos à assistance électrique et vélos cargos, et ceux achetés à partir du 01/05/2020 pour les vélos pliants et vélos adaptés. La facture doit être acquittée et rédigée en euros et en français.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"modalite_versement",
+         "description":"Modalités de versement.",
+         "example":"L'usager doit se connecter sur la plateforme mes-demarches.iledefrance-mobilites.fr et compléter le formulaire de demande en ligne.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"montant",
+         "description":"Montant.",
+         "example":"50 % maximum du prix d’achat TTC du vélo et des accessoires, dans la limite de 500 €.",
+         "type":"string",
+         "constraints":{
+            "required":true
+         }
+      },
+      {
+         "name":"montant_minimum",
+         "description":"Montant minimum de l'aide.",
+         "example":"1€ sous conditions.",
+         "type":"string",
+         "constraints":{
+            "required":false
+         }
+      },
+      {
+         "name":"mode_transport",
+         "description":"Mode de transport.",
+         "example":"['Vélo', 'VAE', 'Vélo Cargo', 'Vélo adapté]",
+         "constraints":{
+            "required":false
+         },
          "type":"array",
          "arrayItem":{
-            "type": "string",
-            "constraints": {
-               "enum": ["Classification A", "Classification B", "Classification C"]
-            }
+            "type": "string"
+         }
+      },
+      {
+         "name":"justificatifs",
+         "description":"Justificatifs.",
+         "example":"['Une copie de la facture d’achat du vélo et de ses accessoires éventuels au nom du demandeur ', 'Une copie du certificat d’homologation ou certificat de conformité du vélo remis par le vendeur (pour les vélos avec assistance électrique uniquement)', 'Une copie d’un justificatif de domicile de moins de trois mois au nom du demandeur ou une attestation d’hébergement ', 'Une copie d’une pièce d’identité (carte nationale d’identité, passeport ou titre de séjour)', 'Une copie d’un justificatif d’émancipation pour les mineurs émancipés', 'Un RIB au nom du demandeur', 'Uniquement pour les personnes habitant dans une ville ou intercommunalité qui propose une aide pour le même type de vélo, le justificatif d’obtention ou de refus de l’aide locale.']",
+         "constraints":{
+            "required":false
+        },
+         "type":"array",
+         "arrayItem":{
+            "type": "string"
+         }
+      },
+      {
+         "name":"info",
+         "description":"Bon à savoir.",
+         "example":"Certains accessoires sont aussi éligibles à l'aide, s'ils sont achetés en même temps que le vélo. Ils doivent figurer sur la même facture que celle du vélo.",
+         "type":"string",
+         "constraints":{
+            "required":false
+         }
+      },
+      {
+         "name":"contact",
+         "description":"Contact.",
+         "example":"https://www.iledefrance-mobilites.fr/aide-et-contacts",
+         "type":"string",
+         "constraints":{
+            "required":false
+         }
+      },
+
+      {
+         "name":"duree_validite",
+         "description":"Durée de validité.",
+         "example":"1 à 12 mois",
+         "type":"string",
+         "constraints":{
+            "required":false
+         }
+      },
+      {
+         "name":"date_fin_validite",
+         "description":"Date de fin de validité, au format ISO 8601 AAAA-MM-DD.",
+         "example":"2022-06-01",
+         "type":"date",
+         "constraints":{
+            "required":false
+         }
+      },
+      {
+         "name":"lien_souscription",
+         "description":"Lien de souscription externe.",
+         "example":"https://mes-demarches.iledefrance-mobilites.fr/",
+         "type":"string",
+         "constraints":{
+            "required":false
+         }
+      },
+      {
+         "name":"source",
+         "description":"Source de l'information.",
+         "example":"https://www.iledefrance-mobilites.fr/le-reseau/services-de-mobilite/velo/prime-achat-velo",
+         "type":"string",
+         "format":"uri",
+         "constraints":{
+            "required":false
          }
       }
    ],
