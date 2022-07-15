@@ -26,8 +26,8 @@
    "sources":[
    ],
    "created":"2022-06-01",
-   "lastModified":"2022-06-01",
-   "version":"0.1.0",
+   "lastModified":"2022-07-15",
+   "version":"0.2.0",
    "contributors":[
       {
          "title":"Alex Bourreau",
@@ -41,15 +41,14 @@
          "name":"id",
          "description":"Un identifiant unique de l'aide.",
          "example":"42",
-         "type":"integer",
+         "type":"string",
          "constraints":{
-            "required":true,
-            "minimum":1
+            "required":true
          }
       },
       {
-         "name":"nom",
-         "description":"Nom de l'aide.",
+         "name":"title",
+         "description":"Titre de l'aide.",
          "example":"Prime à l'achat pour vélo",
          "type":"string",
          "constraints":{
@@ -66,8 +65,8 @@
          }
       },
       {
-         "name":"territoire",
-         "description":"Nom du territoire.",
+         "name":"territoryName",
+         "description":"Nom du territoire de l'aide.",
          "example":"Île-de-France.",
          "type":"string",
          "constraints":{
@@ -75,26 +74,8 @@
          }
       },
       {
-         "name":"territoire_insee",
-         "description":"Code Insee du territoire.",
-         "example":"11",
-         "type":"integer",
-         "constraints":{
-            "required":true
-         }
-      },
-      {
-         "name":"type_financeur",
-         "description":"Type de financeur.",
-         "example":"Aide de mon territoire.",
-         "type":"string",
-         "constraints":{
-            "required":true
-         }
-      },
-      {
-         "name":"financeur",
-         "description":"Nom du financeur.",
+         "name":"funderName",
+         "description":"Nom du financeur de l'aide.",
          "example":"Île-de-France Mobilités.",
          "type":"string",
          "constraints":{
@@ -102,8 +83,18 @@
          }
       },
       {
-         "name":"condition_obtention",
-         "description":"Conditions d'obtention.",
+         "name":"incentiveType",
+         "description":"Type de l'aide.",
+         "example":"Aide de mon territoire.",
+         "type":"string",
+         "constraints":{
+            "required":true,
+            "enum": ["AideNationale", "AideTerritoire", "AideEmployeur"]
+         }
+      },
+      {
+         "name":"conditions",
+         "description":"Conditions d'octroi de l'aide.",
          "example":"Pour pouvoir bénéficier de l’aide à l’achat d’un vélo, vous devez :\n- Être une personne physique\n- Être majeur (ou mineur émancipé) et habiter en Île-de-France\n- Avoir acheté un vélo neuf conforme à la réglementation en vigueur, à partir du 1er décembre 2019 pour les VAE, vélos cargos avec ou sans assistance électrique ou à partir du 1er mai 2020 pour les vélos pliants et les vélos adaptés\n- S’engager à ne pas revendre le vélo pendant une durée de 3 ans\n- Ne pas avoir déjà bénéficié de la même aide d’Île-de-France Mobilités\n- Avoir demandé les aides locales si elles existent avant de faire la demande faite à Île-de-France Mobilités\n\nLes vélos concernés par cette aide sont les :\n- Vélo classique à assistance électrique\n- Vélo cargo avec ou sans assistance électrique : biporteur, triporteur, vélo rallongé (longtail), etc.\n- Vélo pliant avec ou sans assistance électrique\n- Vélo adapté\n\nLes vélos doivent être neufs et conformes à la réglementation en vigueur.\n\nPour le remboursement, sont concernés les vélos achetés à partir du 01/12/2019 pour les vélos à assistance électrique et vélos cargos, et ceux achetés à partir du 01/05/2020 pour les vélos pliants et vélos adaptés. La facture doit être acquittée et rédigée en euros et en français.",
          "type":"string",
          "constraints":{
@@ -111,7 +102,7 @@
          }
       },
       {
-         "name":"modalite_versement",
+         "name":"paymentMethod",
          "description":"Modalités de versement.",
          "example":"L'usager doit se connecter sur la plateforme mes-demarches.iledefrance-mobilites.fr et compléter le formulaire de demande en ligne.",
          "type":"string",
@@ -120,8 +111,8 @@
          }
       },
       {
-         "name":"montant",
-         "description":"Montant.",
+         "name":"allocatedAmount",
+         "description":"Montant alloué à l'aide par le financeur.",
          "example":"50 % maximum du prix d’achat TTC du vélo et des accessoires, dans la limite de 500 €.",
          "type":"string",
          "constraints":{
@@ -129,7 +120,7 @@
          }
       },
       {
-         "name":"montant_minimum",
+         "name":"minAmount",
          "description":"Montant minimum de l'aide.",
          "example":"1€ sous conditions.",
          "type":"string",
@@ -138,7 +129,7 @@
          }
       },
       {
-         "name":"mode_transport",
+         "name":"transportList",
          "description":"Mode de transport.",
          "example":"['Vélo', 'VAE', 'Vélo Cargo', 'Vélo adapté]",
          "constraints":{
@@ -146,12 +137,13 @@
          },
          "type":"array",
          "arrayItem":{
-            "type": "string"
+            "type": "string",
+            "enum": ["transportsCommun", "velo", "voiture", "libreService", "electrique", "autopartage", "covoiturage"]
          }
       },
       {
-         "name":"justificatifs",
-         "description":"Justificatifs.",
+         "name":"attachments",
+         "description":"Justificatifs demandés pour l'octroi de l'aide.",
          "example":"['Une copie de la facture d’achat du vélo et de ses accessoires éventuels au nom du demandeur ', 'Une copie du certificat d’homologation ou certificat de conformité du vélo remis par le vendeur (pour les vélos avec assistance électrique uniquement)', 'Une copie d’un justificatif de domicile de moins de trois mois au nom du demandeur ou une attestation d’hébergement ', 'Une copie d’une pièce d’identité (carte nationale d’identité, passeport ou titre de séjour)', 'Une copie d’un justificatif d’émancipation pour les mineurs émancipés', 'Un RIB au nom du demandeur', 'Uniquement pour les personnes habitant dans une ville ou intercommunalité qui propose une aide pour le même type de vélo, le justificatif d’obtention ou de refus de l’aide locale.']",
          "constraints":{
             "required":false
@@ -162,7 +154,7 @@
          }
       },
       {
-         "name":"info",
+         "name":"additionalInfos",
          "description":"Bon à savoir.",
          "example":"Certains accessoires sont aussi éligibles à l'aide, s'ils sont achetés en même temps que le vélo. Ils doivent figurer sur la même facture que celle du vélo.",
          "type":"string",
@@ -172,7 +164,7 @@
       },
       {
          "name":"contact",
-         "description":"Contact.",
+         "description":"Coordonnées de contact.",
          "example":"https://www.iledefrance-mobilites.fr/aide-et-contacts",
          "type":"string",
          "constraints":{
@@ -181,7 +173,7 @@
       },
 
       {
-         "name":"duree_validite",
+         "name":"validityDuration",
          "description":"Durée de validité.",
          "example":"1 à 12 mois",
          "type":"string",
@@ -190,7 +182,7 @@
          }
       },
       {
-         "name":"date_fin_validite",
+         "name":"validityDate",
          "description":"Date de fin de validité, au format ISO 8601 AAAA-MM-DD.",
          "example":"2022-06-01",
          "type":"date",
@@ -199,7 +191,16 @@
          }
       },
       {
-         "name":"lien_souscription",
+         "name":"isMCMStaff",
+         "description":"Souscription possible à une aide via MCM",
+         "example": "false",
+         "type":"boolean",
+         "constraints":{
+            "required":false
+         }
+      },
+      {
+         "name":"subscriptionLink",
          "description":"Lien de souscription externe.",
          "example":"https://mes-demarches.iledefrance-mobilites.fr/",
          "type":"string",
